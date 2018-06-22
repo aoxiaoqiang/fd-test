@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Fri Jun 22 2018 17:53:20 GMT+0800 (CST)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -21,21 +21,27 @@ module.exports = function(config) {
 
 
     // list of files / patterns to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'test/*.js': ['coverage']
+    },
+
+    // 添加测试报告导出
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    // coverage 添加测试覆盖率报告
+    reporters: ['progress', 'coverage'],
 
     // web server port
     port: 9876,
@@ -56,9 +62,14 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    // browsers: ['Firefox'],
-    browsers: ['Chrome'],
-
+    // 浏览器可以设置多个
+    "browsers": ["Firefox", "Chrome", "ChromeHeadless", "ChromeHeadlessNoSandbox"],
+    "customLaunchers": {
+      "ChromeHeadlessNoSandbox": {
+        "base": "ChromeHeadless",
+        "flags": ["--no-sandbox"]
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
